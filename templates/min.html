@@ -1,0 +1,95 @@
+<div ng-controller="minCtrl" class="paddir">
+  <br />
+  <article ng-if="viewDica" class="message is-primary">
+  <div class="message-header">
+    <p>Dicas</p>
+    <button ng-click="$parent.viewDica = false" class="delete"></button>
+  </div>
+  <div class="message-body">
+    <ul>
+      <li>
+        - O interpretador de funções lê equações como x^3+12y^9-12z^2
+      </li>
+      <li>
+        - Use o padrão americano (ponto ao invés de virgula para separar casas decimais)
+      </li>
+    </ul>
+  </div>
+</article>
+  <div class="field">
+  <p class="control">
+    <span class="select is-large">
+      <select ng-model="metodo">
+        <option value="uniforme" >Busca Uniforme</option>
+        <option value="dico">Busca Dicotômica</option>
+        <option value="aurea" >Seção Áurea</option>
+        <option value="fibo" >Busca de Fibonacci</option>
+        <option value="bis" >Bisseção</option>
+        <option value="newton" >Newton</option>
+      </select>
+    </span>
+  </p>
+</div>
+  <div class="field">
+  <label class="label">Função</label>
+  <p class="control">
+    <input class="input"  ng-model="expressao" type="text" placeholder="f(x)">
+  </p>
+</div>
+<div class="columns">
+  <div class="column is-half">
+    <div class="field">
+    <label class="label">A</label>
+    <p class="control">
+      <input class="input" ng-model="a" type="number" placeholder="a">
+    </p>
+  </div>
+</div>
+<div class="column is-half">
+  <div class="field">
+  <label class="label">B</label>
+  <p class="control">
+    <input class="input" ng-model="b" type="number" placeholder="b">
+  </p>
+</div>
+</div>
+</div>
+<div class="columns">
+  <div class="column" ng-if="metodo==='uniforme'">
+    <div class="field">
+      <label class="label">^</label>
+      <p class="control">
+        <input class="input" ng-model="$parent.delta" type="number" placeholder="delta">
+      </p>
+    </div>
+  </div>
+  <div class="column" ng-if="metodo!=='uniforme'&&metodo!=='aurea'&&metodo!=='fibo'&&metodo!=='bis'">
+    <div class="field">
+      <label class="label">E</label>
+      <p class="control">
+        <input class="input" ng-model="$parent.epsilon" type="number" placeholder="epsilon">
+      </p>
+    </div>
+  </div>
+  <div class="column" ng-if="metodo==='aurea'||metodo==='dico'||metodo==='fibo'||metodo==='bis'">
+    <div class="field">
+      <label class="label">L</label>
+      <p class="control">
+        <input class="input" ng-model="$parent.l" type="number" placeholder="L">
+      </p>
+    </div>
+  </div>
+</div>
+<a  ng-click="selec()" class="button is-large is-primary">Calcula</a>
+<div class="modal" ng-class="{'is-active':viewModal}">
+  <div ng-click="viewModal=false "class="modal-background"></div>
+  <div class="modal-content scale-up-center">
+    <div class="box">
+      <h1 class="title is-1">
+        Resultado: {{resultado}}
+      </h1>
+    </div>
+  </div>
+  <button ng-click="viewModal=false"class="modal-close"></button>
+</div>
+</div>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- SCRIPTS -->
+  <script src="./js/jquery.min.js"></script>
+  <script src="./js/angular/angular.min.js"></script>
+  <script src="./js/math/math.min.js"></script>
+  <script src="./js/math/d3.min.js"></script>
+  <!--script src="./js/math/function-plot@1.14.0"></script>-->
+  <!--<script src="./semantic/dist/semantic.min.js"></script>-->
+
+  <script src="./js/index.js"></script>
+
+  <!-- STYLES -->
+  <!--link rel="stylesheet" href="./semantic/dist/semantic.min.css">-->
+  <link rel="stylesheet" href="./css/bulma.css">
+  <link rel="stylesheet" href="./css/style.css">
+
+</head>
+<body ng-app="App" ng-controller="navCtrl" >
+  <nav class="nav has-shadow">
+  <div class="container">
+    <div class="nav-left">
+      <a class="nav-item">
+        <img src="./img/unesp-logo.png" alt="Bulma logo">
+      </a>
+      <a  ng-click="page='home'" ng-class="{'is-active':(page=='home')}" class="nav-item is-tab is-hidden-mobile">Home</a>
+      <a  ng-click="page='trab1'" ng-class="{'is-active':(page=='trab1')}" class="nav-item is-tab is-hidden-mobile">Trabalho 1</a>
+      <a  ng-click="page='min'" ng-class="{'is-active':(page=='min')}" class="nav-item is-tab is-hidden-mobile">Monovariável</a>
+      <a  ng-click="page='multi'" ng-class="{'is-active':(page=='multi')}" class="nav-item is-tab is-hidden-mobile">Multivariável</a>
+    </div>
+    <span class="nav-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+    <div class="nav-right nav-menu">
+      <a ng-click="page='home'" ng-class="{'is-active':(page=='home')}" class="nav-item is-tab is-hidden-tablet">Home</a>
+      <a ng-click="page='trab1'" ng-class="{'is-active':(page=='trab1')}" class="nav-item is-tab is-hidden-tablet">Trabalho 1</a>
+      <a ng-click="page='min'" ng-class="{'is-active':(page=='min')}" class="nav-item is-tab is-hidden-tablet">Monovariável</a>
+      <a ng-click="page='multi'" ng-class="{'is-active':(page=='multi')}" class="nav-item is-tab is-hidden-tablet">Multivariável</a>
+    </div>
+  </div>
+</nav>
+  <div ng-switch="page">
+    <home-directive ng-switch-when="home"></home-directive>
+    <trab1-directive ng-switch-when="trab1"></trab1-directive>
+    <min-directive ng-switch-when="min"></min-directive>
+    <multi-directive ng-switch-when="multi"></multi-directive>
+  </div>
+  <br />
+  <footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        Trabalho desenvolvido para a matéria de PO2 ministrada pela Professora Andreia
+      </p>
+      <p>
+        UNESP-Bauru - 2018
+      </p>
+    </div>
+  </div>
+</footer>
+</body>
+  </html>

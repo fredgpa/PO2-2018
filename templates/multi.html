@@ -1,0 +1,97 @@
+<div ng-controller="minCtrl" class="paddir">
+  <br />
+  <article ng-if="viewDica" class="message is-primary">
+    <div class="message-header">
+      <p>Dicas</p>
+      <button ng-click="$parent.viewDica = false" class="delete"></button>
+    </div>
+    <div class="message-body">
+      <ul>
+        <li>
+          - O interpretador de funções lê equações como x^3+12y^9-12z^2
+        </li>
+        <li>
+          - Use o padrão americano (ponto ao invés de virgula para separar casas decimais)
+        </li>
+      </ul>
+    </div>
+  </article>
+
+  <div class="columns">
+    <div class="column">
+      <div class="field">
+        <label class="label">Método</label>
+        <p class="control">
+          <span class="select is-large">
+            <select ng-model="multimetodo">
+              <option value="cicli" >Coordenadas Ciclicas</option>
+              <option value="hooke">Hooke e Jeeves</option>
+              <option value="grad" >Gradiente</option>
+              <option value="newton" >Newton</option>
+              <option value="gradconj" >Gradiente Conjugado</option>
+              <option value="fer" >Fletcher e Reeves</option>
+              <option value="dfp" >Davison-Fletcher-Powell</option>
+            </select>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="column is-one-quarter">
+      <div class="field">
+        <label class="label">Quantidade de variáveis</label>
+        <p class="control">
+          <input class="input"  ng-model="qntVar" ng-change="varSize(variables)" type="number" min="1" max="9" placeholder="n">
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-one-quarter">
+      <label class="label">X0</label>
+      <table class="table is-bordered">
+        <thead>
+          <tr>
+            <th>Xn</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="variable in variables track by $index" >
+            <th>
+              x{{$index+1}}
+            </th>
+            <th>
+              <input class="input"  ng-model="variables[$index]" type="number">
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="column">
+      <div class="field">
+        <label class="label">Função</label>
+        <p class="control">
+          <input class="input"  ng-model="expressao" type="text" placeholder="f(x)">
+        </p>
+      </div>
+        <div class="field">
+          <label class="label">E</label>
+          <p class="control">
+            <input class="input" ng-model="epsilon" type="number" placeholder="epsilon">
+          </p>
+        </div>
+    </div>
+  </div>
+    <a  ng-click="selecMulti()" class="button is-large is-primary">Calcula</a>
+    <div class="modal" ng-class="{'is-active':viewModal}">
+      <div ng-click="viewModal=false "class="modal-background"></div>
+      <div class="modal-content scale-up-center">
+        <div class="box">
+          <h1 class="title is-1">
+            Resultado: {{resultado}}
+          </h1>
+        </div>
+      </div>
+      <button ng-click="viewModal=false"class="modal-close"></button>
+    </div>
+</div>

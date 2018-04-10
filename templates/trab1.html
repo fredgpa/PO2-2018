@@ -1,0 +1,80 @@
+<div ng-controller="minCtrl" class="paddir">
+  <br />
+
+
+  <div class="columns">
+    <div class="column">
+      <div class="field">
+        <label class="label">Método</label>
+        <p class="control">
+          <span class="select is-large">
+            <select ng-model="trab1metodo">
+              <option value="flux_max">Fluxo Máximo</option>
+              <option value="perc_min">Percurso Mínimo</option>
+              <option value="ext_min">Extensão Mínima</option>
+            </select>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="column is-one-quarter">
+      <div class="field">
+        <label class="label">Quantidade de nós</label>
+        <p class="control">
+          <input class="input"  ng-model="qntNos" type="number" min="2">
+        </p>
+      </div>
+    </div>
+    <div class="column is-one-quarter">
+      <div class="field">
+        <label class="label">Quantidade de arcos</label>
+        <p class="control">
+          <input class="input"  ng-model="qntArcos" ng-change="arcosSize(variables)" type="number" min="1">
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-two-fifths">
+      <label class="label">Nós</label>
+      <table class="table is-bordered">
+        <thead>
+          <tr>
+            <th>Arcos</th>
+            <th>Nó 1</th>
+            <th>Nó 2</th>
+            <th>Custo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="variable in variables track by $index" >
+            <th>
+              Arco {{$index+1}}
+            </th>
+            <th>
+              <input class="input"  ng-model="arcos[$index][1]" type="number" min="1" max="qntNos">
+            </th>
+            <th>
+              <input class="input"  ng-model="arcos[$index][2]" type="number" min="1" max="qntNos">
+            </th>
+            <th>
+              <input class="input"  ng-model="arcos[$index][3]" type="number">
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+    <a  ng-click="selecGrafos()" class="button is-large is-primary">Calcula</a>
+    <div class="modal" ng-class="{'is-active':viewModal}">
+      <div ng-click="viewModal=false "class="modal-background"></div>
+      <div class="modal-content scale-up-center">
+        <div class="box">
+          <h1 class="title is-1">
+            Resultado: {{resultado}}
+          </h1>
+        </div>
+      </div>
+      <button ng-click="viewModal=false"class="modal-close"></button>
+    </div>
+</div>
