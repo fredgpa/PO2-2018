@@ -25,6 +25,7 @@
     "electron"
   ],
   "dependencies": {
+    "console-debug": "^0.4.2",
     "electron-debug": "^1.0.0"
   },
   "devDependencies": {

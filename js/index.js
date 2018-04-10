@@ -30,10 +30,13 @@ app.controller('minCtrl', function($scope) {
       $scope.trab1metodo="";
     //Essas variaveis tem binding com os inputs, pra facilitar não use elas
     //Dentro das funções crie variaveis ex: let a= $scope.a;
+    $scope.qntArcos = [];
+    $scope.qntNos = [];
+    $scope.arcos_saida = [];
+    $scope.arcos_entrada = [];
+    $scope.arcos_valor = [];
 
-    $scope.arcos = [];
-    $scope.qntArcos = '';
-    $scope.qntNos = '';
+
     //Variaveis mono
     $scope.a = '';
     $scope.b = '';
@@ -59,7 +62,10 @@ app.controller('minCtrl', function($scope) {
 
     $scope.selecGrafos = function(){
         //Essa função vai chamar os métodos e receber o resultado retornado
-        let arcos = $scope.arcos;
+        let arcos_entrada = $scope.arcos_entrada;
+        let arcos_saida = $scope.arcos_saida;
+        let arcos_valor = $scope.arcos_valor;
+
         let qntArcos = $scope.qntArcos;
         let qntNos = $scope.qntNos;
         $scope.viewModal=true;
@@ -68,10 +74,10 @@ app.controller('minCtrl', function($scope) {
               $scope.resultado=fluxo_maximo(arcos, qntArcos, qntNos);
               break;
             case 'perc_min':
-              $scope.resultado=percurso_minimo(arcos, qntArcos, qntNos);
+              $scope.resultado=percurso_minimo(arcos, qntArcos, qntNos, noInicial, noFinal);
               break;
             case 'ext_min':
-              $scope.resultado=extensao_minima(arcos, qntArcos, qntNos);
+              $scope.resultado=extensao_minima(arcos_entrada, arcos_saida, arcos_valor, qntArcos, qntNos);
               break;
             default:
                 console.log("Erro");
@@ -79,36 +85,37 @@ app.controller('minCtrl', function($scope) {
         }
     }
 
-    var extensao_minima = function(arcos, qntArcos, qntNos){
+    var extensao_minima = function(arcos_entrada, arcos_saida, arcos_valor, qntArcos, qntNos){
       let rede = [];
       let no = 1;
       let valor;
       let valor_final = 0;
+      let final = [];
       rede.push(no);
       for (var j = 0; j < qntNos - 1; j++) {
         valor  = 1000000;
         for (var i = 0; i < qntArcos; i++) {
-          if (redes.indexOf(arcos[i][1]) != -1 && redes.indexOf(arcos[i][2]) == -1) {
-            if (arcos[i][3] < valor) {
-              valor = arcos[i][3];
-              no = arcos[i][2];
+          if (rede.indexOf(arcos_saida[i]) != -1 && rede.indexOf(arcos_entrada[i]) == -1) {
+            if (arcos_valor[i] < valor) {
+              valor = arcos_valor[i];
+              no = arcos_entrada[i];
             }
-          }else if (redes.indexOf(arcos[i][2]) != -1 && redes.indexOf(arcos[i][1]) == -1) {
-            if (arcos[i][3] < valor) {
-              valor = arcos[i][3];
-              no = arcos[i][1];
+          }else if (rede.indexOf(arcos_entrada[i]) != -1 && rede.indexOf(arcos_saida[i]) == -1) {
+            if (arcos_valor[i] < valor) {
+              valor = arcos_valor[i];
+              no = arcos_saida[i];
             }
           }
         }
-        valor_final += valor;
+        if (valor_final != 1000000) {
+          valor_final += valor;
+        }
         rede.push(no);
-
-
       }
-      return rede;
+      return valor_final;
     }
 
-    var percurso_minimo = function(arcos, qntArcos, qntNos){
+    var percurso_minimo = function(arcos, qntArcos, qntNos, noInicial, noFinal){
 
     }
 
@@ -435,6 +442,7 @@ app.controller('minCtrl', function($scope) {
                 break;
         }
     }
+
     $scope.varSize = function(array){
       let n=$scope.qntVar-array.length;
       console.log(n);
